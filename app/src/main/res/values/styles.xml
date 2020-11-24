@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="KeyboardButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
+    <style name="Field">
+        <item name="android:cursorVisible">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:requiresFadingEdge">horizontal</item>
+    </style>
+
+</resources>
