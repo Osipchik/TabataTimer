@@ -2,6 +2,7 @@ package com.example.lab2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,4 +29,10 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
         recreate();
-    }}
+    }
+
+    public void onCreateButtonClick(View view) {
+        Intent intent = new Intent(this, CreateActivity.class);
+        startActivity(intent);
+    }
+}

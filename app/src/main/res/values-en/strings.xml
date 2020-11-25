@@ -14,10 +14,39 @@
     <string name="turn_off">Turn OFF</string>
     <string name="delete">DELETE</string>
     <string name="delete_all">DELETE ALL</string>
+    <string name="splash_footer">Designed by Your Name Here</string>
 
     <string-array name="text_scale">
         <item>Small</item>
         <item>Normal</item>
         <item>Big</item>
     </string-array>
+
+    <string name="add_string">+</string>
+    <string name="name">Name</string>
+    <string name="work">Work</string>
+    <string name="start">Start</string>
+    <string name="preparation">Preparation</string>
+    <string name="pause">Pause</string>
+    <string name="rest">Rest</string>
+
+    <string name="quit_message">Do you want to quit training?</string>
+    <string name="cancel_timer_message">Do you want to exit the timer editor?</string>
+    <string name="save_message">Do you want to keep the timer?</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cycle">Cycles</string>
+    <string name="set">Sets</string>
+    <string name="Sleep">Calm Down</string>
+    <string name="cancel">Canceling</string>
+    <string name="save">Save</string>
+    <string name="workout">Workout</string>
+    <string name="minus">-</string>
+
+    <string name="workout_completed">Workout completed</string>
+    <string name="rest_between">Rest between sets</string>
+    <string name="finish">Finish</string>
+    <string name="TIME">TIME</string>
+    <string name="STEP">STEP</string>
 </resources>

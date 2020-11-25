@@ -33,7 +33,33 @@
 
     <string-array name="text_scale_alias">
         <item>0.85</item>
-        <item>1</item>
+        <item>1.0</item>
         <item>1.15</item>
     </string-array>
+
+    <string name="add_string">+</string>
+    <string name="work">Работа</string>
+    <string name="preparation">Подготовка</string>
+    <string name="rest">Отдых</string>
+    <string name="start">Старт</string>
+    <string name="pause">Пауза</string>
+    <string name="finish">Финиш</string>
+    <string name="name">Название</string>
+    <string name="cycle">Циклы</string>
+    <string name="set">Сеты</string>
+    <string name="Sleep">Успокоиться</string>
+    <string name="rest_between">Отдых между подходами</string>
+    <string name="quit_message">Вы хотите выйти из тренировки?</string>
+    <string name="cancel_timer_message">Вы хотите прекратить создание таймера?</string>
+    <string name="save_message">Вы хотите прекратить редактирование таймера и сохранить его?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="workout">Тренировка</string>
+    <string name="minus">-</string>
+
+    <string name="workout_completed">Тренировка завершена</string>
+    <string name="TIME">ВРЕМЯ</string>
+    <string name="STEP">ЭТАП</string>
 </resources>

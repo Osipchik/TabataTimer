@@ -13,10 +13,13 @@ import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class Settings extends PreferenceActivity {
     SharedPreferences preferences;
+    int fontScaleIndex;
+    int languageIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,18 @@ public class Settings extends PreferenceActivity {
     }
 
     private Locale initLanguage(){
-        Locale locale = new Locale(preferences.getString("test_lang", "ru"));
+        String value = preferences.getString("test_lang", "ru");
+        Locale locale = new Locale(value);
         Locale.setDefault(locale);
+
+        languageIndex = Arrays.asList((getResources().getStringArray(R.array.language_alias))).indexOf(value);
 
         return locale;
     }
 
     private float initFontSize(){
         String font = preferences.getString("font_size", "1.0");
+        fontScaleIndex = Arrays.asList((getResources().getStringArray(R.array.text_scale_alias))).indexOf(font);
 
         return Float.parseFloat(font);
     }
@@ -55,17 +62,19 @@ public class Settings extends PreferenceActivity {
 
             addPreferencesFromResource(R.xml.preference);
 
-            Preference button = findPreference("DeleteAll");
-
-            ListPreference language = (ListPreference) findPreference("test_lang");
             Preference theme = findPreference("theme");
+            theme.setOnPreferenceChangeListener(this::onThemeChange);
 
             ListPreference font = (ListPreference) findPreference("font_size");
-
-            theme.setOnPreferenceChangeListener(this::onThemeChange);
-            language.setOnPreferenceChangeListener(this::onLanguageChange);
-            button.setOnPreferenceClickListener(this::onDeleteClick);
             font.setOnPreferenceChangeListener(this::onFontChange);
+            font.setValueIndex(((Settings) getActivity()).fontScaleIndex);
+
+            ListPreference language = (ListPreference) findPreference("test_lang");
+            language.setOnPreferenceChangeListener(this::onLanguageChange);
+            language.setValueIndex(((Settings) getActivity()).languageIndex);
+
+            Preference button = findPreference("DeleteAll");
+            button.setOnPreferenceClickListener(this::onDeleteClick);
         }
 
 
