@@ -2,9 +2,9 @@
     <string name="app_name">Lab2</string>
 
     <string name="settings">Настройки</string>
-    <string name="font_size">Стиль для шрифта</string>
-    <string name="sets_font_size">Устанавливает стиль для шрифта</string>
-    <string name="select_font_size">Выберите стиль для шрифта</string>
+    <string name="font_size">Размер текста</string>
+    <string name="sets_font_size">Изменяет размер текста</string>
+    <string name="select_font_size">Выберите размер текста</string>
     <string name="select_language">Выберите язык</string>
     <string name="app_language">Язык в приложении</string>
     <string name="language">Язык</string>

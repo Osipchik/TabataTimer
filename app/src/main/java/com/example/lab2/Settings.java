@@ -13,6 +13,8 @@ import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.lab2.DataBase.AppDatabase;
+
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -56,10 +58,13 @@ public class Settings extends PreferenceActivity {
 
     public static class ChangeSettingsFragment extends PreferenceFragment {
 
+        private AppDatabase database;
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            database = App.getInstance().getDatabase();
             addPreferencesFromResource(R.xml.preference);
 
             Preference theme = findPreference("theme");
@@ -118,7 +123,7 @@ public class Settings extends PreferenceActivity {
 
 
         private boolean onDeleteClick(Preference preference) {
-
+            database.timerDao().DeleteAll();
             Intent intent = new Intent();
             getActivity().setResult(RESULT_OK, intent);
             getActivity().finish();

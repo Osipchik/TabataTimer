@@ -3,18 +3,20 @@ package com.example.lab2;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.lab2.DataBase.AppDatabase;
+import com.example.lab2.Models.TimerModel;
 
 import codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar;
 import codes.side.andcolorpicker.model.IntegerHSLColor;
 
 public class CreateActivity extends AppCompatActivity {
-
-    private CreateViewModel viewModel;
 
     private EditText inputName;
     private EditText inputPrep;
@@ -25,17 +27,63 @@ public class CreateActivity extends AppCompatActivity {
     private EditText inputCalm;
     private HSLColorPickerSeekBar colorPicker;
 
+    private AppDatabase database;
+    private CreateViewModel viewModel;
+    private TimerModel timerModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        database = App.getInstance().getDatabase();
         viewModel = ViewModelProviders.of(this).get(CreateViewModel.class);
 
-        initInputs();
+        setInputs();
         setButtonObserver();
         setInputObservers();
+
+        initInputs(getIds());
+
+        inputName.setOnKeyListener(this::onNameKeyListener);
+    }
+
+    private boolean onNameKeyListener(View view, int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            viewModel.setName(inputName.getText().toString());
+            if(keyCode == 4)
+            {
+                Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(backIntent);
+                finish();
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private int[] getIds() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        return  (int[])bundle.get("timerId");
+    }
+
+    private void initInputs(int[] ids) {
+        if(ids[1] == 1){
+            timerModel = database.timerDao().getById(ids[0]);
+            viewModel.setName(timerModel.Name);
+            viewModel.setPrep(timerModel.Preparation);
+            viewModel.setWork(timerModel.WorkTime);
+            viewModel.setRest(timerModel.RestTime);
+            viewModel.setCycle(timerModel.Cycles);
+            viewModel.setSets(timerModel.Sets);
+            viewModel.setRestSets(timerModel.RestSets);
+            viewModel.setColor(timerModel.Color);
+            colorPicker.setPickedColor(convertToIntegerHSLColor(timerModel.Color));
+        }
     }
 
     private void setButtonObserver() {
@@ -57,11 +105,11 @@ public class CreateActivity extends AppCompatActivity {
         findViewById(R.id.btn_calm_plus).setOnClickListener(i -> viewModel.setIncrementRestSets());
         findViewById(R.id.btn_calm_minus).setOnClickListener(i -> viewModel.setDecrementRestSets());
 
-        findViewById(R.id.btn_cancel).setOnClickListener(i -> openQuitDialogCancel());
+        findViewById(R.id.btn_cancel).setOnClickListener(i -> quitHandler());
         findViewById(R.id.btn_save).setOnClickListener(i -> openQuitDialogSave());
     }
 
-    private void initInputs(){
+    private void setInputs(){
         inputName = findViewById(R.id.input_name);
         inputPrep = findViewById(R.id.input_prep);
         inputWork = findViewById(R.id.input_work);
@@ -82,31 +130,47 @@ public class CreateActivity extends AppCompatActivity {
         viewModel.getRestSets().observe(this, val -> inputCalm.setText(val.toString()));
     }
 
-    private void openQuitDialogCancel() {
-        AlertDialog.Builder quitDialog = new AlertDialog.Builder(CreateActivity.this);
-        quitDialog.setTitle(getResources().getString(R.string.cancel));
-        quitDialog.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
-            Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(backIntent);
-            finish();
-        });
-        quitDialog.setNegativeButton(getResources().getString(R.string.no), (dialog, which) -> {});
-        quitDialog.show();
+    private void quitHandler() {
+        Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(backIntent);
+        finish();
+    }
+
+    private void initModel(TimerModel timerModel) {
+        timerModel.Name = inputName.getText().toString();
+        timerModel.Preparation = Integer.parseInt(inputPrep.getText().toString());
+        timerModel.WorkTime = Integer.parseInt(inputWork.getText().toString());
+        timerModel.RestTime = Integer.parseInt(inputRest.getText().toString());
+        timerModel.Cycles = Integer.parseInt(inputCycle.getText().toString());
+        timerModel.Sets = Integer.parseInt(inputSet.getText().toString());
+        timerModel.RestSets = Integer.parseInt(inputCalm.getText().toString());
+
+        IntegerHSLColor ii = colorPicker.getPickedColor();
+        timerModel.Color = Color.HSVToColor(new float[]{ii.getFloatH(), ii.getFloatL(), ii.getFloatS()});
     }
 
     private void openQuitDialogSave() {
-        AlertDialog.Builder quitDialog = new AlertDialog.Builder(CreateActivity.this);
-        quitDialog.setTitle(getResources().getString(R.string.save_message));
-        quitDialog.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
-            Intent intent = getIntent();
-            Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(backIntent);
-            finish();
-        });
-        quitDialog.setNegativeButton(getResources().getString(R.string.no), (dialog, which) -> {
-            onBackPressed();
-        });
-        quitDialog.show();
+        saveDialogHandler();
+
+        quitHandler();
+    }
+
+    private void saveDialogHandler() {
+        int[] ids = getIds();
+
+        if (ids[1] != 1) {
+            TimerModel model = new TimerModel();
+            initModel(model);
+            database.timerDao().insert(model);
+        }
+        else {
+            initModel(timerModel);
+            database.timerDao().update(timerModel);
+        }
+
+        Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(backIntent);
+        finish();
     }
 
 
