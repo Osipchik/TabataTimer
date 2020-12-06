@@ -19,13 +19,12 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class Settings extends PreferenceActivity {
-    SharedPreferences preferences;
-    int fontScaleIndex;
-    int languageIndex;
+    private SharedPreferences preferences;
+    private int fontScaleIndex;
+    private int languageIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences.getBoolean("theme", true)) {
             setTheme(R.style.Theme_AppCompat);
@@ -57,7 +56,6 @@ public class Settings extends PreferenceActivity {
     }
 
     public static class ChangeSettingsFragment extends PreferenceFragment {
-
         private AppDatabase database;
 
         @Override
@@ -82,7 +80,6 @@ public class Settings extends PreferenceActivity {
             button.setOnPreferenceClickListener(this::onDeleteClick);
         }
 
-
         private boolean onLanguageChange(Preference preference, Object newValue) {
             Locale locale = new Locale(newValue.toString());
 
@@ -94,7 +91,6 @@ public class Settings extends PreferenceActivity {
 
             return true;
         }
-
 
         private boolean onFontChange(Preference preference, Object newValue) {
             Configuration configuration = getResources().getConfiguration();
@@ -120,7 +116,6 @@ public class Settings extends PreferenceActivity {
 
             return true;
         }
-
 
         private boolean onDeleteClick(Preference preference) {
             database.timerDao().DeleteAll();

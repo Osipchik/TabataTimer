@@ -60,6 +60,7 @@ public class TimerService extends Service {
         else {
             scheduledFuture = service.scheduleAtFixedRate(mr, 0, time + 1, TimeUnit.SECONDS);
         }
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -68,7 +69,6 @@ public class TimerService extends Service {
     }
 
     class ServiceTimerTask extends TimerTask {
-
         private final int time;
         private final String name;
 

@@ -17,7 +17,6 @@ import codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar;
 import codes.side.andcolorpicker.model.IntegerHSLColor;
 
 public class CreateActivity extends AppCompatActivity {
-
     private EditText inputName;
     private EditText inputPrep;
     private EditText inputWork;
@@ -106,7 +105,7 @@ public class CreateActivity extends AppCompatActivity {
         findViewById(R.id.btn_calm_minus).setOnClickListener(i -> viewModel.setDecrementRestSets());
 
         findViewById(R.id.btn_cancel).setOnClickListener(i -> quitHandler());
-        findViewById(R.id.btn_save).setOnClickListener(i -> openQuitDialogSave());
+        findViewById(R.id.btn_save).setOnClickListener(i -> quitSave());
     }
 
     private void setInputs(){
@@ -149,7 +148,7 @@ public class CreateActivity extends AppCompatActivity {
         timerModel.Color = Color.HSVToColor(new float[]{ii.getFloatH(), ii.getFloatL(), ii.getFloatS()});
     }
 
-    private void openQuitDialogSave() {
+    private void quitSave() {
         saveDialogHandler();
 
         quitHandler();

@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lab2.DataBase.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
-
-    RecyclerView listView;
-    AppDatabase database;
+    private RecyclerView listView;
+    private AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class WorkoutActivity extends AppCompatActivity {
-
     private TimerModel timerModel;
 
     private BroadcastReceiver receiver;
@@ -129,7 +128,7 @@ public class WorkoutActivity extends AppCompatActivity {
     public void clear() {
         int index = element - listTraining.getFirstVisiblePosition();
 
-        if (element != 0 && index - 1 < 14 && index - 1 >= 0 && element != 0) {
+        if (element != 0 && index - 1 < 14 && index - 1 >= 0) {
             listTraining.getChildAt(index - 1).setBackgroundColor(getResources().getColor(R.color.colorPrimary,getTheme()));
         }
 

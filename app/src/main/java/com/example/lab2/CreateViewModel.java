@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 public class CreateViewModel extends ViewModel {
     private MutableLiveData<String> Name = new MutableLiveData<>(null);
     private MutableLiveData<Integer> Preparation = new MutableLiveData<>(10);
-    private MutableLiveData<Integer> WorkTime = new MutableLiveData<>(20);
+    private MutableLiveData<Integer> WorkTime = new MutableLiveData<>(10);
     private MutableLiveData<Integer> RestTime = new MutableLiveData<>(10);
     private MutableLiveData<Integer> RestSets = new MutableLiveData<>(10);
     private MutableLiveData<Integer> Cycles = new MutableLiveData<>(2);

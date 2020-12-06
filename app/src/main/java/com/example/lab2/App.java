@@ -7,7 +7,6 @@ import androidx.room.Room;
 import com.example.lab2.DataBase.AppDatabase;
 
 public class App extends Application {
-
     public static App instance;
 
     private AppDatabase database;
